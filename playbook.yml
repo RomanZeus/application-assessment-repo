@@ -1,0 +1,39 @@
+---
+- name: Install Docker and configure user
+  hosts: server
+  become: true
+  tasks:
+    - name: Update the package list
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+      become: true
+
+    - name: Add the ubuntu user to the docker group
+      user:
+        name: ubuntu
+        groups: docker
+        append: yes
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+
+    - name: Output confirmation messages
+      debug:
+        msg: "Server setup completed!"
+
+    - name: Output Docker version
+      command: "docker --version"
+
+- name: Pull Docker image from Docker Hub
+  hosts: server
+  become: true
+  tasks:
+    - name: Pull Docker image from Docker Hub
+      command: "docker pull your_docker_image"

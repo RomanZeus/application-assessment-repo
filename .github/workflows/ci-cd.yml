@@ -1,0 +1,35 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Docker
+      uses: actions/setup-docker@v2
+
+    - name: Build and Push Docker Image
+      env:
+        DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: |
+        docker build -t $DOCKER_REGISTRY/cloudhight:latest .
+        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REGISTRY
+        docker push $DOCKER_REGISTRY/cloudhight:latest
+
+    - name: Deploy to EC2 Instances
+      env:
+        ANSIBLE_PLAYBOOK_PATH: playbook.yml
+        INVENTORY_PATH: inventory.ini
+        ANSIBLE_SSH_PRIVATE_KEY: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
+      run: |
+        ansible-playbook -i $INVENTORY_PATH $ANSIBLE_PLAYBOOK_PATH --private-key=$ANSIBLE_SSH_PRIVATE_KEY

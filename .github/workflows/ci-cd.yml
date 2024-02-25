@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Print Current Directory
+      run: |
+        pwd
+        ls
+    
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:

@@ -7,7 +7,7 @@ ENV JAVA_OPTS=$JAVA_OPTS
 WORKDIR /app
 
 # Copy the JAR file into the container tn the /app directory
-COPY target/*.jar applicationassessmentrepo.jar
+COPY target/*.war webapp.war
 
 EXPOSE 8080
 

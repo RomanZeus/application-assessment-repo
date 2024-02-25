@@ -10,12 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Print Current Directory
-      run: pwd
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-    - name: Show whats in the directory
-      run: ls -l
-    
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
@@ -30,9 +27,6 @@ jobs:
       with:
         name: java-artifact
         path: target/*.jar
-    
-    - name: Checkout Repository
-      uses: actions/checkout@v2
 
     - name: Login to Docker Hub
       uses: docker/login-action@v3

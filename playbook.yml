@@ -1,6 +1,6 @@
 ---
 - name: Install Docker and configure user
-  hosts: server
+  hosts: servers
   become: true
   tasks:
     - name: Update the package list
@@ -32,7 +32,7 @@
       command: "docker --version"
 
 - name: Pull Docker image from Docker Hub
-  hosts: server
+  hosts: servers
   become: true
   tasks:
     - name: Pull Docker image from Docker Hub

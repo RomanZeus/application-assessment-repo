@@ -11,9 +11,10 @@ jobs:
 
     steps:
     - name: Print Current Directory
-      run: |
-        pwd
-        ls
+      run: pwd
+
+    - name: Show whats in the directory
+      run: ls -l
     
     - name: Set up JDK
       uses: actions/setup-java@v2

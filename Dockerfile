@@ -7,7 +7,7 @@ ENV JAVA_OPTS=$JAVA_OPTS
 WORKDIR /app
 
 # Copy the JAR file into the container tn the /app directory
-COPY target/spring-petclinic-2.4.2.jar applicationassessmentrepo.jar
+COPY target/*.jar applicationassessmentrepo.jar
 
 EXPOSE 8080
 

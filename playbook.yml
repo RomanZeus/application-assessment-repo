@@ -7,6 +7,29 @@
       apt:
         update_cache: yes
 
+- name: Copy SSH key to private instances via bastion
+  hosts: private
+  gather_facts: False
+  become: yes
+
+- name: Copy SSH key to private instances via bastion
+  hosts: private
+  gather_facts: False
+  become: yes
+
+  tasks:
+    - name: Copy SSH key to private instance
+      shell: >
+        echo "$ANSIBLE_SSH_PRIVATE_KEY" > /tmp/private_key.pem &&
+        ssh-copy-id
+        -i /tmp/private_key.pem
+        -o ProxyCommand="ssh -W %h:%p -q -i /tmp/private_key.pem {{ hostvars['bastion']['ansible_host'] }}"
+        {{ inventory_hostname }}
+      args:
+        executable: /bin/bash
+
+
+
     - name: Install Docker
       apt:
         name: docker.io

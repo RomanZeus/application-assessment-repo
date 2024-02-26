@@ -43,7 +43,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ DOCKER_REGISTRY }}:latest
+        tags: ${{ secrets.DOCKER_REGISTRY }}:latest
 
     - name: Deploy to EC2 Instances
       env:

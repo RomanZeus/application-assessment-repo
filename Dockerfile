@@ -12,5 +12,5 @@ COPY target/*.war webapp.war
 EXPOSE 8080
 
 # Specify the command to run on container start
-ENTRYPOINT ["exec", "java", "$JAVA_OPTS", "-jar", "applicationassessmentrepo.jar"]
+ENTRYPOINT ["exec", "java", "$JAVA_OPTS", "-jar", "webapp.war"]
 
